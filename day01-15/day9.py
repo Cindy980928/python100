@@ -11,7 +11,7 @@ python内的私有都是“伪私有”
 双下划线开头、双下划线结尾的变量或函数（魔法方法和魔法属性）
     在python解释器中有特定的处理方式和机理
 '''
-
+from abc import ABCMeta, abstractmethod
 from math import sqrt
 
 
@@ -156,6 +156,72 @@ class Triangle(object):
         half = self.perimeter() / 2
         return sqrt(half * (half - self._a) *
                     (half - self._b) * (half - self._c))
+
+
+# 抽出一个基类
+class Employee(object, metaclass=ABCMeta):
+    """员工"""
+
+    def __init__(self, name):
+        self._name = name
+
+    @property
+    def name(self):
+        return self._name
+
+    @abstractmethod
+    def get_salary(self):
+        pass
+
+
+class Manager(Employee):
+    def get_salary(self):
+        return 15000.0
+
+
+class Programmer(Employee):
+    def __init__(self, name, working_hour=0):
+        super().__init__(name)
+        self._working_hour = working_hour
+
+    @property
+    def working_hour(self):
+        return self._working_hour
+
+    @working_hour.setter
+    def working_hour(self, working_hour):
+        self._working_hour = working_hour if working_hour > 0 else 0
+
+    def get_salary(self):
+        return 150.0 * self._working_hour
+
+
+class Salesman(Employee):
+    def __init__(self, name, sale=0):
+        super().__init__(name)
+        self._sale = sale
+
+    @property
+    def sale(self):
+        return self._sale
+
+    @sale.setter
+    def sale(self, sale):
+        self._sale = sale if sale > 0 else 0
+
+    def get_salary(self):
+        return 1200.0 + self._sale * 0.05
+
+
+def main():
+    emps = [Manager('老丁'), Programmer('小丁'), Salesman('胖丁')]
+    for emp in emps:
+        # isinstance判断是否是该类型
+        if isinstance(emp, Programmer):
+            emp.working_hour = int(input('输入工作时长'))
+        elif isinstance(emp, Salesman):
+            emp.sale = float(input('输入销售额'))
+        print('%s本月工资为%s' % (emp.name, emp.get_salary()))
 
 
 # def main():
