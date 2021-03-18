@@ -33,6 +33,7 @@ def main():
 
 
 def is_prime(n):
+    # 断言，如果为false则抛出异常
     assert n > 0
     for i in range(2, int(sqrt(n) + 1)):
         if n % i == 0:
