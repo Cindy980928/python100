@@ -78,19 +78,41 @@ def zczc():
 def longestPalindrome():
     s = input()
     length = len(s)
-    result = 0
-    resultIndex = 0
-    for i in range(1, length - 1):
-        k = i
-        while i > 0 and k < length - 1 and s[i - 1] == s[k + 1]:
-            i -= 1
-            k += 1
-        max = k - i + 1
-        if max > result:
-            resultIndex = i
-        result = max if max > result else result
-    print(s[resultIndex:resultIndex + result])
+    max = 1
+    result = 1
+    result_index = 0
+    for i in range(length):
+        for j in range(i, length):
+            if isHuiwen(s[i:j + 1]):
+                max = j - i + 1
+                if max > result:
+                    result = max
+                    result_index = i
+    return s[result_index:result_index + result]
+
+
+def isHuiwen(str):
+    length = len(str)
+    flag = 0
+    for i in range(int(length / 2)):
+        if str[i] != str[length - 1 - i]:
+            flag = 1
+    if flag == 0:
+        return True
+    else:
+        return False
+
+
+def reverse():
+    x = int(input())
+    y = x if x > 0 else -x
+    sum = 0
+    while y > 0:
+        sum = sum * 10 + y % 10
+        y = int(y / 10)
+    sum = sum if x > 0 else -sum
+    return sum
 
 
 if __name__ == '__main__':
-    longestPalindrome()
+    print(longestPalindrome())
