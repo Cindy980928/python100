@@ -6,6 +6,7 @@
 输出：[0,1]
 解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。
 '''
+import math
 
 
 def twoNumsSun():
@@ -114,5 +115,54 @@ def reverse():
     return sum
 
 
+def myAtoi():
+    s = input().strip()
+    length = len(s)
+    if length < 1:
+        return 0
+    start = 0
+    index = 0
+    flag = 0
+    if s[0] == '-':
+        flag = 1
+        start = 1
+    elif s[0] == '+':
+        start = 1
+    for i in range(start, length):
+        if s[i] == '0':
+            start += 1
+        else:
+            break
+    for i in range(start, length):
+        if '0' <= s[i] <= '9':
+            index += 1
+        else:
+            break
+    result = s[start:start + index]
+    if result == '':
+        result = '0'
+    result = -eval(result) if flag == 1 else eval(result)
+    if result < -math.pow(2, 31):
+        result = -int(math.pow(2, 31))
+    elif result > math.pow(2, 31) - 1:
+        result = int(math.pow(2, 31) - 1)
+    return result
+
+
+# 盛水最多的容器
+def maxArea():
+    height = [eval(x) for x in input().split()]
+    length = len(height)
+    area = 0
+    result = 0
+    for i in range(length - 1):
+        for j in range(i + 1, length):
+            h = height[j] if height[i] > height[j] else height[i]
+            area = h * (j - i)
+            result = area if area > result else result
+    return result
+
+
+
 if __name__ == '__main__':
-    print(longestPalindrome())
+    print(maxArea())
