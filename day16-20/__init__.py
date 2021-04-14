@@ -125,6 +125,41 @@ def foo3(name='foo3'):
     print(name)
 
 
+def bobble_sort(nums):
+    for i in range(len(nums)):
+        for j in range(len(nums) - 1 - i):
+            if nums[j] > nums[j + 1]:
+                k = nums[j]
+                nums[j] = nums[j + 1]
+                nums[j + 1] = k
+    return nums
+
+
+def select_sort(nums):
+    length = len(nums)
+    for i in range(length - 1):
+        min = i
+        for j in range(i + 1, length):
+            if nums[min] > nums[j]:
+                min = j
+        if min != i:
+            k = nums[min]
+            nums[min] = nums[i]
+            nums[i] = k
+    return nums
+
+
+def insert_sort(nums):
+    for i in range(1, len(nums)):
+        key = nums[i]
+        j = i - 1
+        while j >= 0 and key < nums[j]:
+            nums[j + 1] = nums[j]
+            j -= 1
+        nums[j + 1] = key
+    return nums
+
+
 if __name__ == '__main__':
     # foo1 = extend_foo1(foo1)  # 这条语句相当于  foo = wrapper
     # foo1()  # 执行foo1()就相当于执行 wrapper()
@@ -132,3 +167,11 @@ if __name__ == '__main__':
     foo2('丁丁', 22, '2m')
 
     foo3()
+
+    items = [1, 2, 4, 1, 8, 5]
+    print(insert_sort(items))
+
+
+'''
+
+'''

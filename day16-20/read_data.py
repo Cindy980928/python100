@@ -9,6 +9,8 @@ b站视频：https://www.bilibili.com/video/BV1hE411t7RN?p=7
 数据集：
 链接：https://pan.baidu.com/s/1R5mBwBo-AGydrwZX0EDbCA 
 提取码：tkrp
+
+PyTorch是一个开源的Python机器学习库
 '''
 
 
